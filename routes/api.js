@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 //Getting all
-router.get('/', (req, res, next) => { 
-   req.time = Date.now().toString();
-   req.timeUTC = new Date().toUTCString()
-   next();
-}, (req, res) => {
-    res.send({'unix': req.time, 'utc': req.timeUTC});
+router.get('/:date', (req, res, next) => { 
+  const date = req.params.date;
+  const UTCDate = new Date(date).toUTCString();
+  
+    res.send({'unix': Date.parse(date), 'utc': UTCDate});
 })
 
 module.exports = router;
