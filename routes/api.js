@@ -6,7 +6,7 @@ const moment = require('moment');
 
 //Getting all
 router.get('/:date', (req, res) => { 
-        const date = parseInt(req.params.date);
+        const date = req.params.date;
 
         //checking if date is empty 
         if (/^\s*$/.test(date) && date == ""){
@@ -16,8 +16,8 @@ router.get('/:date', (req, res) => {
 
             //Checking  if date is in seconds convert it to return date in UTC
         } else if (/^\d{13}$/g.test(date )) {
-           // const newtime = parseInt(date);
-            const newDate = new Date(date).toUTCString()
+            const newtime = parseInt(date);
+            const newDate = new Date(newtime).toUTCString()
             res.send({ unix: date, utc: newDate});
 
           //if date is date not in seconds 
