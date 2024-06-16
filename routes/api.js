@@ -9,9 +9,10 @@ router.get('/:date', (req, res) => {
         const date = req.params.date;
 
         //checking if date is empty 
-        if (/^\s*$/.test(date)){
+        if (/^\s*$/.test(date) && date == ""){
             const date = new Date(Date.now()).toUTCString();
-            res.send({"unix": Date.now(), "utc": date});
+            res.send({"unix": Date.now()});
+            res.send({"utc": date});
 
             //Checking if date is in seconds convert it to return date in UTC
         } else if (/^\d{13}$/g.test(date )) {
