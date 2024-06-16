@@ -10,7 +10,8 @@ router.get('/:date', (req, res) => {
 
         //checking if date is empty 
         if (/^\s*$/.test(date)){
-            res.send({"unix": Date.now()});
+            const date = new Date(Date.now()).toUTCString();
+            res.send({"unix": Date.now(), "utc": date});
 
             //Checking if date is in seconds convert it to return date in UTC
         } else if (/^\d{13}$/g.test(date )) {
@@ -33,7 +34,7 @@ router.get('/:date', (req, res) => {
 const UTCDate = (secondsDate) =>{
   //  const date = new Date(secondsDate * 1000);
      
-  const date = new Date(secondsDate);
+  const date = new Date(secondsDate * 1000);
     
     const daysOfWeek = ["monday", "Tuesday", "wesday","Thursday", "saturday", "Fri", "sunday"];
 
