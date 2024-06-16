@@ -9,26 +9,22 @@ router.get('/:date', (req, res) => {
         const date = req.params.date;
 
         //checking if date is empty 
-        if (date == ""){
+        if (/^\s*$/.test(date)){
             res.send({"unix": Date.now()});
 
             //Checking if date is in seconds convert it to return date in UTC
-        } else if (!isNaN(date)) {
+        } else if (/^\d{13}$/g.test(date )) {
           const newDate = UTCDate(date);
           res.send({'unix': date, 'utc': newDate});
 
           //if date is date not in seconds 
-        } else if(typeof date == 'string') {
+        } else if(/^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[01])$/g.test(date)) {
             const updatedDate = new Date(date).toUTCString();
             res.send({'unix':Date.parse(date), 'utc': updatedDate});
         } else {
             res.send({'error': 'Invalid Data'})
         }
-
-  //Checking if date is empty
-  //if (date == "") {
-  //  res.send({"unix": Date.now()});
- // }
+        
     //Checking if date is not a number or 145000000000.
   
 })
