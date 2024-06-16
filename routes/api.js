@@ -19,11 +19,17 @@ const middlewareDateParser = (req, res, next) => {
        //Checking if date is provided in YYYY-MM-DD format      
     } else if((/^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[01])$/g.test(date))){
         req.parsedDate = new Date(date);
-
-     //Handling invalid Date
+     
+    //Checking if date can be successfully parsed by new Date(date_string)
+     //And Handling invalid Date
     } else {
+        const parsedDate = new Date(date)
+        if(!isNaN(parsedDate.getTime())){
+            req.parsedDate = parsedDate;
+        } else {
         return res.status(400).json({ error: 'Invalid Date' });
     }
+}
 
     //Checking if the date parsed is valid
     if (isNaN(req.parsedDate.getTime())) {
