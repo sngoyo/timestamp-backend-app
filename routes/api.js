@@ -18,7 +18,7 @@ router.get('/:date', (req, res) => {
         } else if (/^\d{13}$/g.test(date )) {
             const newtime = parseInt(date);
             const newDate = new Date(newtime).toUTCString()
-            res.send({ unix: date, utc: newDate});
+            res.send({ unix: date.toString(), utc: newDate});
 
           //if date is date not in seconds 
         } else if(/^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[01])$/g.test(date) | date == "string") {
