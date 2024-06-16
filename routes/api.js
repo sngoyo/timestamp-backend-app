@@ -24,6 +24,16 @@ router.get('/:date', (req, res) => {
         } else if(/^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[01])$/g.test(date) | date == "string") {
             const updatedDate = new Date(date).toUTCString();
             res.send({ unix: Date.parse(date), utc: updatedDate});
+
+        } else if (req.params.date){
+               // Try to parse the date string into a Date object
+          const date = new Date(req.params.date);
+
+        // Convert Unix timestamp to UTC date string
+          const utcDate = date.toUTCString();
+
+        // Send JSON response
+         res.json({ unix: date, utc: utcDate });
         
         } else {
             res.send({ 'error': 'Invalid Date'})
