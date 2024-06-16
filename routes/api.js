@@ -12,7 +12,7 @@ router.get('/:date', (req, res) => {
        // if (/^\s*$/.test(date)){
         if(!req.params.date){
             const date = new Date(Date.now()).toUTCString();
-            res.json({ unix: Date.now(), utc: date});
+            res.send({ unix: Date.now(), utc: date});
 
             //Checking  if date is in seconds convert it to return date in UTC
         } else if (/^\d{13}$/g.test(date )) {
