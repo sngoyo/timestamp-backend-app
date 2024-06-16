@@ -21,13 +21,10 @@ router.get('/:date', (req, res) => {
             res.send({ unix: newtime, utc: newDate});
 
           //if date is date not in seconds 
-        } else if(/^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[01])$/g.test(date)) {
+        } else if(/^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[01])$/g.test(date) && typeof date == "string") {
             const updatedDate = new Date(date).toUTCString();
             res.send({ unix: Date.parse(date), utc: updatedDate});
-
-        } else if (typeof date == "string"){
-            const updatedDate = new Date(date).toUTCString();
-            res.send({ unix: Date.parse(date), utc: updatedDate})
+  
         } else {
             res.send({ 'error': 'Invalid Date'})
       }
